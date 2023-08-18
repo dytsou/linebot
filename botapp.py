@@ -47,10 +47,25 @@ def callback():
 def handle_message(event):
     with ApiClient(configuration) as api_client:
         line_bot_api = MessagingApi(api_client)
+        message_text = str(event.message.text).lower()
+        if message_text == '@about':
+            emoji = [
+                {
+                    "index": 0,
+                    "productId": "5ac1bfd5040ab15980c9b435",
+                    "emojiId": "001"
+                },
+                {
+                    "index": 13,
+                    "productId": "5ac1bfd5040ab15980c9b435",
+                    "emojiId": "002"
+                },
+            ]
+        text_message = TextMessage(text="$歡迎使用linebot $",emojis=emoji)
         line_bot_api.reply_message_with_http_info(
             ReplyMessageRequest(
                 reply_token=event.reply_token,
-                messages=[TextMessage(text=event.message.text)]
+                messages=[text_message]
             )
         )
 
