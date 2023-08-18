@@ -72,10 +72,11 @@ def handle_message(event):
                 "emojiId": "014"
             }, 
         ]
-        text_message = TextMessage(text="$" + event.message.text, emojis=emoji)
+        emoji_text = TextMessage(text="$", emojis=emoji)
+        text_message = TextMessage(text=event.message.text)
         line_bot_api.reply_message( 
             event.reply_token,
-            text_message
+            [emoji_text, text_message]
         )
 
 if __name__ == "__main__":
