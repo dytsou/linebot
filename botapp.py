@@ -61,12 +61,13 @@ def handle_message(event):
                     "emojiId": "002"
                 },
             ]
-        text_message = TextMessage(text="$歡迎使用linebot $",emojis=emoji)
+            text_message = TextMessage(text="$歡迎使用linebot $",emojis=emoji)
+        else:
+            text_message = TextMessage(text=event.message.text)
         line_bot_api.reply_message_with_http_info(
             ReplyMessageRequest(
                 reply_token=event.reply_token,
                 messages=[text_message]
-                #messages=[TextMessage(text=event.message.text)] #reply message
             )
         )
 
