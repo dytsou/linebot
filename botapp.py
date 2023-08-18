@@ -66,6 +66,7 @@ def handle_message(event):
             ReplyMessageRequest(
                 reply_token=event.reply_token,
                 messages=[text_message]
+                #messages=[TextMessage(text=event.message.text)] #reply message
             )
         )
 
