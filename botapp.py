@@ -11,7 +11,11 @@ from linebot.models import (
     MessageEvent,
     TextMessage,
     TextSendMessage,
-    StickerSendMessage
+    StickerSendMessage,
+    ImageSendMessage,
+    LocationSendMessage,
+    FollowEvent,
+    UnfollowEvent
 )
 
 app = Flask(__name__)
@@ -60,9 +64,25 @@ def handle_message(event):
             package_id='446', # 貼圖包ID
             sticker_id='1988' # 貼圖ID
         )
+        ithome_logo_url = 'https://s4.itho.me/sites/default/files/images/ithome_logo.png'
+        image_message = ImageSendMessage(
+        original_content_url=ithome_logo_url,
+        preview_image_url=ithome_logo_url
+        )
         line_bot_api.reply_message( # 回覆訊息
             event.reply_token,
-            [text_message, sticker_message]
+            [text_message, sticker_message, image_message]
+        )
+    elif message_text == '@location':
+        location_message = LocationSendMessage(
+            title='NYCU',
+            address='30010新竹市東區大學路1001號',
+            latitude=24.7868862,
+            longitude=120.994922
+            )
+        line_bot_api.reply_message(
+            event.reply_token,
+            location_message
         )
     else:
         emoji = [
@@ -78,6 +98,19 @@ def handle_message(event):
             event.reply_token,
             [emoji_text, text_message]
         )
+
+@handler.add(UnfollowEvent)
+def handle_unfollow(event):
+    print(event)
+
+@handler.add(FollowEvent)
+def handle_follow(event):
+    print(event)
+    welcome_message = TextSendMessage(text='Hello! User ' + event.source.user_id)
+    line_bot_api.push_message(
+        event.source.user_id,
+        welcome_message
+    )
 
 if __name__ == "__main__":
     app.run()
