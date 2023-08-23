@@ -6,7 +6,7 @@ from events_basic import about_event, location_event, other_event
 
 
 app = Flask(__name__)
-app.config['SQLALCHEMY_DATABASE_URI'] = 'postgresql://dytsou:dyt50u@127.0.0.1:5432/linebot0820'
+app.config['SQLALCHEMY_DATABASE_URI'] = 'postgresql://dytsou:dyt50u@127.0.0.1:5432/linebot0824'
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 
 
