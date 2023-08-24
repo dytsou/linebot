@@ -3,7 +3,8 @@ from linebotAPI import *
 from sql import check_user_info
 from extensions import migrate, db
 from events_basic import about_event, location_event, other_event
-
+from events_service import *
+from urllib.parse import parse_qsl
 
 app = Flask(__name__)
 app.config['SQLALCHEMY_DATABASE_URI'] = 'postgresql://dytsou:dyt50u@127.0.0.1:5432/linebot0824'
@@ -43,6 +44,8 @@ def handle_message(event):
         about_event(event)
     elif message_text == '@location':
         location_event(event)
+    elif message_text == '@service':
+        service_category_event(event)
     else:
         other_event(event)
 
@@ -58,6 +61,12 @@ def handle_follow(event):
         event.source.user_id,
         welcome_message
     )
+
+@handler.add(PostbackEvent)
+def handle_postback(event):
+    data = dict(parse_qsl(event.postback.data))
+    print(data['action'])
+    print(data['itemid'])    
 
 if __name__ == "__main__":
     app.run()

@@ -13,7 +13,12 @@ from linebot.models import (
     ImageSendMessage,
     LocationSendMessage,
     FollowEvent,
-    UnfollowEvent
+    UnfollowEvent,
+    TemplateSendMessage, 
+    ImageCarouselTemplate, 
+    ImageCarouselColumn, 
+    PostbackAction,
+    PostbackEvent,
 )
 
 line_bot_api = LineBotApi('fPzcWsxdrtZiGB9HJ2JtTAcDbxgeGZWp+dxmrh7VgFTzUItPE6MjDjaP8K7uRM0KZRIJN+kAZyXFrBoFwc2gHP6MogNU3c5PMJjmjcH5NMbHw92ZLvPu5BfU2oWHx9b2pJDfV4/ZuyPxH/0Q61UcbgdB04t89/1O/w1cDnyilFU=')
