@@ -46,6 +46,8 @@ def handle_message(event):
         location_event(event)
     elif message_text == '@service':
         service_category_event(event)
+    # elif message_text == '@appointment':
+    #     service_appointment_event(event)
     else:
         other_event(event)
 
@@ -67,6 +69,23 @@ def handle_postback(event):
     data = dict(parse_qsl(event.postback.data))
     print(data['action'])
     print(data['itemid'])    
+
+@handler.add(PostbackEvent)
+def handle_postback(event):
+    data = dict(parse_qsl(event.postback.data))
+    if data.get('action') == 'service_category':
+        service_event(event)
+    # elif data.get('action') == 'select_date':
+    #     service_select_event(event)
+    # elif data.get('action') == 'select_time':
+    #     service_select_time_event(event)
+
+    # print('date:', data.get('date'))
+    # print('time:', data.get('time'))
+    print('action:', data.get('action'))
+    print('itemid:', data.get('itemid'))
+    
+
 
 if __name__ == "__main__":
     app.run()
